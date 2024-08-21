@@ -6,18 +6,33 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import jakarta.annotation.PostConstruct;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.io.File;
 
 @Service
 public class VideoServiceImpl implements VideoService {
 
     @Value("${files.video}")
     String DIR;
+
+    @PostConstruct
+    public void init(){
+        File file=new File(DIR);
+
+        if(!file.exists()){
+            file.mkdir();
+            System.out.println("Folder Created:");
+        }else{
+            System.out.println("Folder already created:");
+        }
+    }
+
 
     @Override
     public Video save(Video video, MultipartFile file) {
