@@ -28,6 +28,7 @@ public class Video {
     private  String filePath;
 
 //    @ManyToOne
+    //many to one
 //    private  Course course;
 
 }
