@@ -33,10 +33,23 @@ public class VideoController {
         video.setDescription(description);
         video.setVideoId(UUID.randomUUID().toString());
 
-        videoService.save(video, file);
+        Video savedVideo = videoService.save(video, file);
 
-        return null;
+        if (savedVideo != null) {
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(video);
+        } else {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(CustomMessage.builder()
+                            .message("Video not uploaded ")
+                            .success(false)
+                            .build()
+                    );
+        }
+
+
     }
-
 
 }
